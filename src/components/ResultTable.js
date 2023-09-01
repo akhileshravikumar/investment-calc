@@ -1,31 +1,57 @@
 import React from 'react';
 import './ResultTable.css'
 
-const ResultTable = ()=>{
 
-    {/* Todo: Show below table conditionally (only once result data is available) */}
-    {/* Show fallback text if no data is available */}
+const formatter = new Intl.NumberFormat('en-US',{
+style: 'currency',
+currency:'INR',
+minimumFractionDigits:2,
+maximumFractionDigits:2,
+});
+
+const ResultTable = (props)=>{
+
+
+  
+
+    if((props.data.length)===0){
+
+      return(
+        <table className='result'>
+          <thead><tr>
+            <th>Nothing here.. Add data and Click on Calculate. </th>
+          </tr></thead>
+        </table>)
+      
+    }
+
     return(
-    <table className="result">
-      <thead>
-        <tr>
-          <th>Year</th>
-          <th>Total Savings</th>
-          <th>Interest (Year)</th>
-          <th>Total Interest</th>
-          <th>Invested Capital</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>YEAR NUMBER</td>
-          <td>TOTAL SAVINGS END OF YEAR</td>
-          <td>INTEREST GAINED IN YEAR</td>
-          <td>TOTAL INTEREST GAINED</td>
-          <td>TOTAL INVESTED CAPITAL</td>
-        </tr>
-      </tbody>
-    </table>);
-}
+      <table className="result">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Total Savings</th>
+            <th>Interest (Year)</th>
+            <th>Total Interest</th>
+            <th>Invested Capital</th>
+          </tr>
+        </thead>
+        <tbody>
+          {props.data.map(yearData=>{
+            return(
+          <tr key={yearData.year}>
+            <td>{yearData.year}</td>
+            <td>{formatter.format(yearData.savingsEndOfYear)}</td>
+            <td>{formatter.format(yearData.yearlyInterest)}</td>
+            <td>{formatter.format(yearData.savingsEndOfYear-props.initialAmount- yearData.yearlyContribution * yearData.year)}</td>
+            <td>{formatter.format(parseInt(props.initialAmount) + (yearData.yearlyContribution * yearData.year))}</td>
+          </tr>
+            );
+          })}
+          
+        </tbody>
+      </table>);
+    }
+    
 
 export default ResultTable;

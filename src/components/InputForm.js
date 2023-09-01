@@ -1,32 +1,49 @@
-import React from "react";
+import React , {useState} from "react";
 import Input from "./Input";
 import './InputForm.css'
 
-
+const initialUserInput = {
+    'current-savings':0,
+    'yearly-savings':0,
+    'expected-interest' : 0,
+    'investment-duration':0,
+};
 
 const InputForm = (props)=>{
 
+    
+    const [userInput, setUserInput]=useState(initialUserInput);
+
+    const inputChangeHandler = (input, value)=>{
+        setUserInput((prevState)=>{
+           return({
+               ...prevState,
+               [input]:value,
+           });
+        });
+       }
+
     const submitHandler = (event)=>{
         event.preventDefault();
-        console.log("SUBMIT")
+        props.onSubmitHandler(userInput);
 
 
     };
     const resetHandler = ()=>{
 
-        console.log("RESET")
-
+        setUserInput(initialUserInput);
+        props.onSubmitHandler(null);
     };
 
     return(
     <form className="form" onSubmit={submitHandler}>
         <div className="input-group">
-            <Input label="Current Savings"/>
-            <Input label="Yearly Savings"/>
+            <Input label="Current Savings" func={inputChangeHandler} val = {userInput["current-savings"]}/>
+            <Input label="Yearly Savings" func={inputChangeHandler} val = {userInput["yearly-savings"]}/>
         </div>
         <div className="input-group">
-            <Input label="Expected Interest"/>
-            <Input label="Investment Duration"/>
+            <Input label="Expected Interest" func={inputChangeHandler} val = {userInput["expected-interest"]}/>
+            <Input label="Investment Duration" func={inputChangeHandler} val = {userInput["investment-duration"]}/>
         </div>
         <p className="actions">
             <button type="reset" onClick={resetHandler} className="buttonAlt">
