@@ -3,10 +3,10 @@ import Input from "./Input";
 import './InputForm.css'
 
 const initialUserInput = {
-    'current-savings':0,
-    'yearly-savings':0,
-    'expected-interest' : 0,
-    'investment-duration':0,
+    'current-savings':null,
+    'yearly-savings':null,
+    'expected-interest' : null,
+    'investment-duration':null,
 };
 
 const InputForm = (props)=>{
@@ -18,7 +18,7 @@ const InputForm = (props)=>{
         setUserInput((prevState)=>{
            return({
                ...prevState,
-               [input]:value,
+               [input]:+value,
            });
         });
        }

@@ -44,7 +44,7 @@ const ResultTable = (props)=>{
             <td>{formatter.format(yearData.savingsEndOfYear)}</td>
             <td>{formatter.format(yearData.yearlyInterest)}</td>
             <td>{formatter.format(yearData.savingsEndOfYear-props.initialAmount- yearData.yearlyContribution * yearData.year)}</td>
-            <td>{formatter.format(parseInt(props.initialAmount) + (yearData.yearlyContribution * yearData.year))}</td>
+            <td>{formatter.format(props.initialAmount + (yearData.yearlyContribution * yearData.year))}</td>
           </tr>
             );
           })}

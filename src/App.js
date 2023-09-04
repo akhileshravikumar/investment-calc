@@ -1,7 +1,7 @@
 
-import Header from './components/Header';
-import InputForm from './components/InputForm';
-import ResultTable from './components/ResultTable';
+import Header from './components/Header/Header';
+import InputForm from './components/InputComponents/InputForm';
+import ResultTable from './components/ResultTable/ResultTable';
 
 import React, {useState} from 'react';
 
